@@ -1,0 +1,21 @@
+capture_state:
+  name: Capture device state
+  description: >-
+    Record the current cloud state of a Noma IQ device, labeled with the change
+    you made in the app. Captures are kept until Home Assistant restarts and are
+    included in the integration's diagnostics download.
+  fields:
+    device:
+      name: Device
+      description: The Noma IQ device to capture.
+      required: true
+      selector:
+        device:
+          integration: nomaiq
+    description:
+      name: Description
+      description: What you changed in the app before capturing.
+      required: true
+      example: "Set fan to slow in manual mode"
+      selector:
+        text:

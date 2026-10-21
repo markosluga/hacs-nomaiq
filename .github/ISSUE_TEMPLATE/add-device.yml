@@ -1,0 +1,43 @@
+name: Add device support
+description: Request support for a Noma IQ device that isn't working yet
+labels: ["device-support"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Attach the diagnostics file from Home Assistant (device or integration page > Download diagnostics).
+        Review it before attaching: it contains device names and property values, but no login details or serial numbers.
+        See docs/capturing-device-states.md for how to capture states.
+  - type: input
+    id: model
+    attributes:
+      label: Device model
+      description: The model name as printed on the device or shown in the app
+      placeholder: "e.g. AY028MHA1"
+    validations:
+      required: true
+  - type: input
+    id: oem-model
+    attributes:
+      label: oem_model
+      description: Shown in the diagnostics file under "oem_model"
+    validations:
+      required: true
+  - type: textarea
+    id: captures
+    attributes:
+      label: Captured states
+      description: One line per capture - the app setting you changed and the raw value the diagnostics file shows for it
+      placeholder: |
+        Set fan to slow in manual mode -> fan_speed = Low, mode = Normal
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Anything else the app shows that isn't in the diagnostics file
+  - type: markdown
+    attributes:
+      value: |
+        **Before submitting:** drag the diagnostics `.json` file into the Notes box above so it attaches to the issue.

@@ -2,10 +2,12 @@
 
 ## About
 
-This integration exposes devices from the Noma IQ app. For now, only the current devices have been tested:
+This integration exposes devices from the Noma IQ app. Supported devices:
 
-- Garage Door Opener
-- Garage Door Opener's Light
+- Garage Door Opener and its light
+- Dehumidifier (humidifier with target humidity and modes, plus a fan speed control)
+
+Your device isn't listed? See [docs/capturing-device-states.md](docs/capturing-device-states.md) to help add support. For how the integration works, see [docs/technical.md](docs/technical.md).
 
 ## Installation
 
