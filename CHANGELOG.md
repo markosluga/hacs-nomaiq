@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented here. This project follows [Semantic Versioning](https://semver.org/): fixes are patch releases, new capabilities of existing features are minor releases, and entirely new features are major releases.
 
+## [0.1.3] - 2026-10-21
+
+### Added
+
+- Integration logo for Home Assistant and HACS, in `custom_components/nomaiq/brand/`.
+
+### Fixed
+
+- Humidifier and fan speed controls now update their displayed state right after a change, instead of waiting for the next poll. This removes the brief +1 value before the device's +5 value appears.
+
 ## [0.1.2] - 2026-10-21
 
 ### Fixed

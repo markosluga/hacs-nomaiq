@@ -116,11 +116,13 @@ class NomaIQDehumidifierEntity(HumidifierEntity):
         """Turn the dehumidifier on."""
         await self._device.async_set_property_value("power", 1)
         await self.coordinator.async_request_refresh()
+        self.async_write_ha_state()
 
     async def async_turn_off(self, **kwargs: Any) -> None:
         """Turn the dehumidifier off."""
         await self._device.async_set_property_value("power", 0)
         await self.coordinator.async_request_refresh()
+        self.async_write_ha_state()
 
     async def async_set_humidity(self, humidity: int) -> None:
         """Set the target humidity, moving one 5% step in the requested direction.
@@ -144,6 +146,7 @@ class NomaIQDehumidifierEntity(HumidifierEntity):
         value = min(max(value, MIN_HUMIDITY), MAX_HUMIDITY)
         await self._device.async_set_property_value("humidity", value)
         await self.coordinator.async_request_refresh()
+        self.async_write_ha_state()
 
     async def async_set_mode(self, mode: str) -> None:
         """Set the operating mode."""
@@ -152,7 +155,9 @@ class NomaIQDehumidifierEntity(HumidifierEntity):
             raise ValueError(f"Unsupported mode: {mode}")
         await self._device.async_set_property_value("mode", raw)
         await self.coordinator.async_request_refresh()
+        self.async_write_ha_state()
 
     async def async_update(self) -> None:
         """Update the dehumidifier state."""
         await self.coordinator.async_request_refresh()
+        self.async_write_ha_state()

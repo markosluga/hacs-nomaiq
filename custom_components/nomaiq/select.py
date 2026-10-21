@@ -84,7 +84,9 @@ class NomaIQDehumidifierFanSpeedEntity(SelectEntity):
             raise ValueError(f"Unsupported fan speed: {option}")
         await self._device.async_set_property_value("fan_speed", raw)
         await self.coordinator.async_request_refresh()
+        self.async_write_ha_state()
 
     async def async_update(self) -> None:
         """Update the fan speed state."""
         await self.coordinator.async_request_refresh()
+        self.async_write_ha_state()
