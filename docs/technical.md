@@ -47,7 +47,7 @@ The dehumidifier stores its settings as raw strings, which don't match the label
 | Humidifier (mode) | `mode` | yes | yes | manual ↔ `Normal`, auto dry ↔ `Auto`, continuous ↔ `Persistent` |
 | Select (fan speed) | `fan_speed` | yes | yes | auto ↔ `Smart`, slow ↔ `Low`, fast ↔ `High` |
 
-Target humidity values are rounded to the nearest 5 and clamped to 30–80 before they're sent.
+The device only accepts multiples of 5 for target humidity. Home Assistant's +/- buttons change the target by 1%, so the integration rounds in the direction of the change: increasing rounds up to the next multiple of 5, and decreasing rounds down. From 60, one press up sends 65 and one press down sends 55. Values are clamped to 30–80.
 
 **Verified:** writing `humidity` through the cloud, confirmed by reading it back.
 

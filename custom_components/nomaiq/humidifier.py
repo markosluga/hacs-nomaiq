@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from typing import Any
 
 import ayla_iot_unofficial
@@ -122,10 +123,26 @@ class NomaIQDehumidifierEntity(HumidifierEntity):
         await self.coordinator.async_request_refresh()
 
     async def async_set_humidity(self, humidity: int) -> None:
-        """Set the target humidity, rounded to the device's 5% step."""
-        step_value = round(humidity / 5) * 5
-        step_value = min(max(step_value, MIN_HUMIDITY), MAX_HUMIDITY)
-        await self._device.async_set_property_value("humidity", step_value)
+        """Set the target humidity, moving one 5% step in the requested direction.
+
+        The device only accepts multiples of 5, while the Home Assistant +/-
+        buttons change the target by 1%. Rounding up when increasing and down
+        when decreasing means each press moves the target to the next step.
+        """
+        requested = min(max(int(humidity), MIN_HUMIDITY), MAX_HUMIDITY)
+        current = self.target_humidity
+
+        if current is None:
+            value = round(requested / 5) * 5
+        elif requested > current:
+            value = math.ceil(requested / 5) * 5
+        elif requested < current:
+            value = math.floor(requested / 5) * 5
+        else:
+            value = requested
+
+        value = min(max(value, MIN_HUMIDITY), MAX_HUMIDITY)
+        await self._device.async_set_property_value("humidity", value)
         await self.coordinator.async_request_refresh()
 
     async def async_set_mode(self, mode: str) -> None:

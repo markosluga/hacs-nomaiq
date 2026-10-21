@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here. This project follows [Semantic Versioning](https://semver.org/): fixes are patch releases, new capabilities of existing features are minor releases, and entirely new features are major releases.
 
+## [0.1.2] - 2026-10-21
+
+### Fixed
+
+- Target humidity changes now move one 5% step per press of the Home Assistant +/- buttons. The device only accepts multiples of 5, so the integration rounds in the direction of the change: up when increasing, down when decreasing. From 60, one press up sends 65 and one press down sends 55. The previous nearest-5 rounding made the first presses do nothing.
+
 ## [0.1.1] - 2026-10-21
 
 ### Added
